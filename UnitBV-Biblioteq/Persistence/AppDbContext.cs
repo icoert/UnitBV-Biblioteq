@@ -25,7 +25,7 @@ namespace UnitBV_Biblioteq.Persistence
 
         public static AppDbContext Create()
         {
-            return new AppDbContext();;
+            return new AppDbContext();
         }
     }
 }
