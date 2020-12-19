@@ -36,7 +36,7 @@ namespace UnitBV_Biblioteq.Core.Domain
 
             public bool IsValid()
             {
-            if (!int.TryParse(this.Year, out var year))
+            if (!int.TryParse(this.Year, out _))
             {
                 return false;
             }
