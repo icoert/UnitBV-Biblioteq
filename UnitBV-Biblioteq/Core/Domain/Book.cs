@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,50 @@ namespace UnitBV_Biblioteq.Core.Domain
 
         public List<Domain> Domains { get; set; }
         public List<Author> Authors { get; set; }
+
+        public bool DomainStructure()
+        {
+            var maxDomains = int.Parse(ConfigurationManager.AppSettings["MaxDomainsForBook"]);
+            if (this.Domains.Count > maxDomains)
+            {
+                return false;
+            }
+
+            foreach (var domain in this.Domains)
+            {
+                var parent = domain.Parent;
+                while (parent != null)
+                {
+                    // check parent domain in the list
+                    if (this.Domains.Contains(parent))
+                    {
+                        return false;
+                    }
+
+                    parent = parent.Parent;
+                }
+            }
+
+            return true;
+        }
+
+        public bool IsInDomain(Domain domain)
+        {
+            foreach (var dom in this.Domains)
+            {
+                var parent = dom;
+                while (parent != null)
+                {
+                    if (parent == domain)
+                    {
+                        return true;
+                    }
+
+                    parent = parent.Parent;
+                }
+            }
+
+            return false;
+        }
     }
 }

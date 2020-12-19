@@ -19,6 +19,5 @@ namespace UnitBV_Biblioteq.Core.Domain
 
         public List<Book> Books { get; set; }
 
-
     }
 }

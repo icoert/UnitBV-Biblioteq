@@ -14,6 +14,9 @@ namespace UnitBV_Biblioteq.Core.Domain
             [Required] 
             public virtual Publisher Publisher { get; set; }
 
+            [Required]
+            public virtual Book Book { get; set; }
+
             [MaxLength(4)]
             [MinLength(4)]
             public string Year { get; set; }
@@ -31,7 +34,18 @@ namespace UnitBV_Biblioteq.Core.Domain
 
             public virtual List<BookBorrow> BookBorrows { get; set; }
 
+            public bool IsValid()
+            {
+            if (!int.TryParse(this.Year, out var year))
+            {
+                return false;
+            }
 
+            if (this.Copies < 0 || this.CopiesLibrary< 0 || this.Pages < 1)
+                return false;
 
-        }
+            return this.CopiesLibrary <= this.Copies;
+            }
+
+    }
 }

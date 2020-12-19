@@ -14,7 +14,7 @@ namespace UnitBV_Biblioteq.Core.Domain
         [MinLength(3)]
         public string Name { get; set; }
 
-        public Domain ParentDomain { get; set; }
+        public Domain Parent { get; set; }
         public List<Book> Books { get; set; }
     }
 }

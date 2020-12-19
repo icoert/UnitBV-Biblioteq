@@ -17,5 +17,10 @@ namespace UnitBV_Biblioteq.Core.Domain
         public DateTime? ReturnDate { get; set; }
         public bool IsReturned { get; set; }
         public int NrOfBorrows { get; set; }
+
+        public int BooksInDomain(Domain domain)
+        {
+            return this.Books.Count(book => book.Book.IsInDomain(domain));
+        }
     }
 }
