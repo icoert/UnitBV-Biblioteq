@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 
-namespace UnitBV_Biblioteq.Core.Domain
+namespace UnitBV_Biblioteq.Core.DomainModel
 {
     public class BookEdition
         {

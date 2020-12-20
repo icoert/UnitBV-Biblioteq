@@ -58,22 +58,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Domain\Author.cs" />
-    <Compile Include="Core\Domain\Book.cs" />
-    <Compile Include="Core\Domain\BookBorrow.cs" />
-    <Compile Include="Core\Domain\BookEdition.cs" />
-    <Compile Include="Core\Domain\BookType.cs" />
-    <Compile Include="Core\Domain\Domain.cs" />
-    <Compile Include="Core\Domain\Publisher.cs" />
-    <Compile Include="Core\Domain\User.cs" />
-    <Compile Include="Core\Domain\UserType.cs" />
+    <Compile Include="Core\DomainModel\Author.cs" />
+    <Compile Include="Core\DomainModel\Book.cs" />
+    <Compile Include="Core\DomainModel\BookBorrow.cs" />
+    <Compile Include="Core\DomainModel\BookEdition.cs" />
+    <Compile Include="Core\DomainModel\BookType.cs" />
+    <Compile Include="Core\DomainModel\Domain.cs" />
+    <Compile Include="Core\DomainModel\Publisher.cs" />
+    <Compile Include="Core\DomainModel\User.cs" />
+    <Compile Include="Core\DomainModel\UserType.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Repositories\IAuthorsRepository.cs" />
+    <Compile Include="Core\Repositories\IBookBorrowRepository.cs" />
+    <Compile Include="Core\Repositories\IBookEditionRepository.cs" />
+    <Compile Include="Core\Repositories\IBookRepository.cs" />
+    <Compile Include="Core\Repositories\IDomainRepository.cs" />
+    <Compile Include="Core\Repositories\IPublisherRepository.cs" />
+    <Compile Include="Core\Repositories\IRepository.cs" />
     <Compile Include="Migrations\202012192027064_InitialMigration.cs" />
     <Compile Include="Migrations\202012192027064_InitialMigration.designer.cs">
       <DependentUpon>202012192027064_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012200041280_UpdateTables.cs" />
+    <Compile Include="Migrations\202012200041280_UpdateTables.designer.cs">
+      <DependentUpon>202012200041280_UpdateTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\AppDbContext.cs" />
+    <Compile Include="Persistence\Repositories\BookBorrowRepository.cs" />
+    <Compile Include="Persistence\Repositories\BookEditionRepository.cs" />
+    <Compile Include="Persistence\Repositories\BookRepository.cs" />
+    <Compile Include="Persistence\Repositories\DomainRepository.cs" />
+    <Compile Include="Persistence\Repositories\PublisherRepository.cs" />
+    <Compile Include="Persistence\Repositories\AuthorRepository.cs" />
+    <Compile Include="Persistence\Repositories\Repository.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,12 +100,13 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Repositories\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202012192027064_InitialMigration.resx">
       <DependentUpon>202012192027064_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012200041280_UpdateTables.resx">
+      <DependentUpon>202012200041280_UpdateTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

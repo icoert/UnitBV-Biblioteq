@@ -1,5 +1,5 @@
 ﻿using System.Data.Entity;
-using UnitBV_Biblioteq.Core.Domain;
+using UnitBV_Biblioteq.Core.DomainModel;
 
 namespace UnitBV_Biblioteq.Persistence
 {
@@ -11,12 +11,12 @@ namespace UnitBV_Biblioteq.Persistence
             Configuration.LazyLoadingEnabled = false;
         }
 
-        public DbSet<Book> Books { get; set; }
-        public DbSet<Domain> Domains { get; set; }
-        public DbSet<Author> Authors { get; set; }
-        public DbSet<BookEdition> BookEditions { get; set; }
-        public DbSet<BookBorrow> BookBorrows { get; set; }
-        public DbSet<Publisher> Publishers { get; set; }
+        public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<Domain> Domains { get; set; }
+        public virtual DbSet<Author> Authors { get; set; }
+        public virtual DbSet<BookEdition> BookEditions { get; set; }
+        public virtual DbSet<BookBorrow> BookBorrows { get; set; }
+        public virtual DbSet<Publisher> Publishers { get; set; }
 
         public static AppDbContext Create()
         {

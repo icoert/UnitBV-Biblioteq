@@ -2,8 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 
-
-namespace UnitBV_Biblioteq.Core.Domain
+namespace UnitBV_Biblioteq.Core.DomainModel
 {
     public class Book
     {
@@ -12,7 +11,7 @@ namespace UnitBV_Biblioteq.Core.Domain
         [Required]
         public string Title { get; set; }
 
-        public List<Domain> Domains { get; set; }
+        public List<DomainModel.Domain> Domains { get; set; }
         public List<Author> Authors { get; set; }
 
         public bool DomainStructure()
@@ -41,7 +40,7 @@ namespace UnitBV_Biblioteq.Core.Domain
             return true;
         }
 
-        public bool IsInDomain(Domain domain)
+        public bool IsInDomain(DomainModel.Domain domain)
         {
             foreach (var dom in this.Domains)
             {
