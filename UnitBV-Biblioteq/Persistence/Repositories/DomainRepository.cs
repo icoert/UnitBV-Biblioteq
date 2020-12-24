@@ -15,57 +15,20 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
         }
 
         private static readonly ILog Logger = LogManager.GetLogger(typeof(DomainRepository));
-        public AppDbContext AppDbContext => Context as AppDbContext;
+        private AppDbContext AppDbContext => Context as AppDbContext;
 
 
-        public IEnumerable<Domain> Domains => Context.Set<Domain>();
-
-        public bool AddDomain(Domain domain)
-        {
-            try
-            {
-                Context.Set<Domain>().Add(domain);
-                Context.SaveChanges();
-                Logger.Info($"New domain was added(id={domain.Id}).");
-            }
-            catch (Exception ex)
-            {
-                Logger.Info("Failed to add domain.");
-                Logger.Error(ex.Message, ex);
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool DeleteDomain(Domain domain)
-        {
-            try
-            {
-                Context.Set<Domain>().Remove(domain);
-                Context.SaveChanges();
-                Logger.Info($"Domain was deleted (id={domain.Id}).");
-            }
-            catch (Exception ex)
-            {
-                Logger.Info("Failed to delete domain.");
-                Logger.Error(ex.Message, ex);
-                return false;
-            }
-
-            return true;
-        }
+        public IEnumerable<Domain> Domains => AppDbContext.Set<Domain>();
 
         public bool EditDomain(Domain domain)
         {
             try
             {
-                var existing = Context.Set<Domain>().FirstOrDefault(a => a.Id == domain.Id);
+                var existing = AppDbContext.Domains.FirstOrDefault(a => a.Id == domain.Id);
                 if (existing != null)
                 {
                     existing.Name = domain.Name;
                     existing.Parent = domain.Parent;
-                    Context.SaveChanges();
                     Logger.Info($"Domain with id={domain.Id} was updated.");
                 }
                 else

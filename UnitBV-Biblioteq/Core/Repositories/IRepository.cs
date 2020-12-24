@@ -10,8 +10,8 @@ namespace UnitBV_Biblioteq.Core.Repositories
         IEnumerable<TEntity> GetAll();
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
 
-        void Add(TEntity entity);
+        bool Add(TEntity entity);
 
-        void Remove(TEntity entity);
+        bool Remove(TEntity entity);
     }
 }

@@ -15,55 +15,18 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
         }
 
         private static readonly ILog Logger = LogManager.GetLogger(typeof(PublisherRepository));
-        public AppDbContext AppDbContext => Context as AppDbContext;
+        private AppDbContext AppDbContext => Context as AppDbContext;
 
-        public IEnumerable<Publisher> Publishers => Context.Set<Publisher>();
-
-        public bool AddPublisher(Publisher publisher)
-        {
-            try
-            {
-                Context.Set<Publisher>().Add(publisher);
-                Context.SaveChanges();
-                Logger.Info($"New publisher was added(id={publisher.Id}).");
-            }
-            catch (Exception ex)
-            {
-                Logger.Info("Failed to add publisher.");
-                Logger.Error(ex.Message, ex);
-                return false;
-            }
-
-            return true;
-        }
-
-        public bool DeletePublisher(Publisher publisher)
-        {
-            try
-            {
-                Context.Set<Publisher>().Remove(publisher);
-                Context.SaveChanges();
-                Logger.Info($"Publisher was deleted (id={publisher.Id}).");
-            }
-            catch (Exception ex)
-            {
-                Logger.Info("Failed to delete publisher.");
-                Logger.Error(ex.Message, ex);
-                return false;
-            }
-
-            return true;
-        }
+        public IEnumerable<Publisher> Publishers => AppDbContext.Set<Publisher>();
 
         public bool EditPublisher(Publisher publisher)
         {
             try
             {
-                var existing = Context.Set<Publisher>().FirstOrDefault(a => a.Id == publisher.Id);
+                var existing = AppDbContext.Publishers.FirstOrDefault(a => a.Id == publisher.Id);
                 if (existing != null)
                 {
                     existing.Name = publisher.Name;
-                    Context.SaveChanges();
                     Logger.Info($"Publisher with id={publisher.Id} was updated.");
                 }
                 else

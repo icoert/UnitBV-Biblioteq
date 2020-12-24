@@ -7,10 +7,6 @@ namespace UnitBV_Biblioteq.Core.Repositories
     {
         IEnumerable<Domain> Domains { get; }
 
-        bool AddDomain(Domain domain);
-
         bool EditDomain(Domain domain);
-
-        bool DeleteDomain(Domain domain);
     }
 }

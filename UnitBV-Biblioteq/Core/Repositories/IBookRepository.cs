@@ -7,10 +7,8 @@ namespace UnitBV_Biblioteq.Core.Repositories
     {
         IEnumerable<Book> Books { get; }
 
-        bool AddBook(Book book);
-
         bool EditBook(Book book);
 
-        bool DeleteBook(Book book);
+        bool IsValid(Book book);
     }
 }

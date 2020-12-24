@@ -7,10 +7,6 @@ namespace UnitBV_Biblioteq.Core.Repositories
     {
         IEnumerable<Publisher> Publishers { get; }
 
-        bool AddPublisher(Publisher publisher);
-
         bool EditPublisher(Publisher publisher);
-
-        bool DeletePublisher(Publisher publisher);
     }
 }
