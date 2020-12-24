@@ -23,6 +23,10 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
         {
             try
             {
+                if (publisher == null)
+                {
+                    return false;
+                }
                 var existing = AppDbContext.Publishers.FirstOrDefault(a => a.Id == publisher.Id);
                 if (existing != null)
                 {

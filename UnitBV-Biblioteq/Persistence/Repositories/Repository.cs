@@ -19,21 +19,20 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             Context = context;
         }
 
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(Repository<>));
-
         public TEntity Get(int id)
         {
+            var logger = LogManager.GetLogger(typeof(Repository<TEntity>));
             try
             {
                 var entity = Context.Set<TEntity>().Find(id);
-                Logger.Info($"The entity with id={id} was retrieved.");
+                logger.Info($"The entity with id={id} was retrieved.");
 
                 return entity;
             }
             catch (Exception ex)
             {
-                Logger.Info("Failed to get the entity.");
-                Logger.Error(ex.Message, ex);
+                logger.Info("Failed to get the entity.");
+                logger.Error(ex.Message, ex);
 
                 return null;
             }
@@ -41,17 +40,19 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
 
         public IEnumerable<TEntity> GetAll()
         {
+            var logger = LogManager.GetLogger(typeof(Repository<TEntity>));
+
             try
             {
                 var entities = Context.Set<TEntity>().ToList();
-                Logger.Info("The entities were retrieved.");
+                logger.Info("The entities were retrieved.");
 
                 return entities;
             }
             catch (Exception ex)
             {
-                Logger.Info("Failed to get all entities.");
-                Logger.Error(ex.Message, ex);
+                logger.Info("Failed to get all entities.");
+                logger.Error(ex.Message, ex);
 
                 return null;
             }
@@ -59,16 +60,18 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
+            var logger = LogManager.GetLogger(typeof(Repository<TEntity>));
+
             try
             {
                 var entity = Context.Set<TEntity>().Where(predicate);
-                Logger.Info("The entity was found.");
+                logger.Info("The entity was found.");
                 return entity;
             }
             catch (Exception ex)
             {
-                Logger.Info("Failed to find the entity.");
-                Logger.Error(ex.Message, ex);
+                logger.Info("Failed to find the entity.");
+                logger.Error(ex.Message, ex);
 
                 return null;
             }
@@ -76,35 +79,40 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
 
         public bool Add(TEntity entity)
         {
+            var logger = LogManager.GetLogger(typeof(Repository<TEntity>));
+
             try
             {
                 Context.Set<TEntity>().Add(entity);
-                Logger.Info("New entity was added.");
+                logger.Info("New entity was added.");
 
-                return true;
             }
             catch (Exception ex)
             {
-                Logger.Info("Failed to add the entity.");
-                Logger.Error(ex.Message, ex);
+                logger.Info("Failed to add the entity.");
+                logger.Error(ex.Message, ex);
 
                 return false;
             }
+
+            return true;
         }
 
         public bool Remove(TEntity entity)
         {
+            var logger = LogManager.GetLogger(typeof(Repository<TEntity>));
+
             try
             {
                 Context.Set<TEntity>().Remove(entity);
-                Logger.Info("New entity was removed.");
+                logger.Info("New entity was removed.");
 
                 return true;
             }
             catch (Exception ex)
             {
-                Logger.Info("Failed to remove the entity.");
-                Logger.Error(ex.Message, ex);
+                logger.Info("Failed to remove the entity.");
+                logger.Error(ex.Message, ex);
 
                 return false;
             }

@@ -19,27 +19,14 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
 
         public IEnumerable<Book> Books => AppDbContext.Set<Book>();
 
-
-        public bool AddBook(Book book)
-        {
-            try
-            {
-                AppDbContext.Books.Add(book);
-                Logger.Info($"New book was added(id={book.Id}).");
-            }
-            catch (Exception)
-            {
-                Logger.Info($"Failed to add book.");
-                return false;
-            }
-
-            return true;
-        }
-
         public bool EditBook(Book book)
         {
             try
             {
+                if (book == null)
+                {
+                    return false;
+                }
                 var existing = AppDbContext.Books.FirstOrDefault(a => a.Id == book.Id);
                 if (existing != null)
                 {

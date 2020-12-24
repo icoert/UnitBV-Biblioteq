@@ -1,4 +1,5 @@
-﻿using UnitBV_Biblioteq.Core;
+﻿using System;
+using UnitBV_Biblioteq.Core;
 using UnitBV_Biblioteq.Core.Repositories;
 using UnitBV_Biblioteq.Persistence.Repositories;
 
@@ -31,9 +32,18 @@ namespace UnitBV_Biblioteq.Persistence
         public IDomainRepository Domains { get; set; }
         public IPublisherRepository Publishers { get; set; }
 
-        public int Complete()
+        public bool Complete()
         {
-            return _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

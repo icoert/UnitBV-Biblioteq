@@ -11,6 +11,6 @@ namespace UnitBV_Biblioteq.Core
         IBookRepository Books { get; }
         IDomainRepository Domains { get; }
         IPublisherRepository Publishers { get; }
-        int Complete();
+        bool Complete();
     }
 }

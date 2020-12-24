@@ -24,6 +24,10 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
         {
             try
             {
+                if (domain == null)
+                {
+                    return false;
+                }
                 var existing = AppDbContext.Domains.FirstOrDefault(a => a.Id == domain.Id);
                 if (existing != null)
                 {

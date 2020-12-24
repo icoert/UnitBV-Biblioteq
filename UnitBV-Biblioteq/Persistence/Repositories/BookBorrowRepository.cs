@@ -24,6 +24,10 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
         {
             try
             {
+                if (borrow == null)
+                {
+                    return false;
+                }
                 var existing = AppDbContext.BookBorrows.FirstOrDefault(a => a.Id == borrow.Id);
                 if (existing != null)
                 {
