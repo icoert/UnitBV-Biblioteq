@@ -144,7 +144,7 @@ namespace UnitBV_Biblioteq_Tests
         }
 
         [TestMethod]
-        public void EditAuthorFullName()
+        public void EditAuthorFullNameTest()
         {
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
@@ -171,7 +171,7 @@ namespace UnitBV_Biblioteq_Tests
         }
 
         [TestMethod]
-        public void EditNoAuthor()
+        public void EditNoAuthorTest()
         {
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
@@ -189,7 +189,7 @@ namespace UnitBV_Biblioteq_Tests
         }
 
         [TestMethod]
-        public void EditNullAuthor()
+        public void EditNullAuthorTest()
         {
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
@@ -337,6 +337,83 @@ namespace UnitBV_Biblioteq_Tests
 
                 var result = unitOfWork.Authors.EditAuthor(author);
 
+                if (result)
+                {
+                    result = unitOfWork.Complete();
+                }
+
+                Assert.AreEqual(false, result);
+            }
+        }
+
+        [TestMethod]
+        public void DeleteAuthorMockTest()
+        {
+            using (var unitOfWork = new UnitOfWork(new AppDbContext()))
+            {
+                var mock = new Mock<IRepository<Author>>();
+
+                mock.Setup(m => m.Remove(It.IsAny<Author>())).Returns(true);
+
+                var author = new Author();
+                var obj = mock.Object;
+
+                var result = obj.Remove(author);
+
+                if (result)
+                {
+                    result = unitOfWork.Complete();
+                }
+
+                Assert.AreEqual(true, result);
+            }
+        }
+
+        [TestMethod]
+        public void DeleteAuthorTest()
+        {
+            using (var unitOfWork = new UnitOfWork(new AppDbContext()))
+            {
+                var author = new Author() { Firstname = "Test81", Lastname = "Test82" };
+
+                unitOfWork.Authors.Add(author);
+                unitOfWork.Complete();
+
+
+                var result = unitOfWork.Authors.Remove(author);
+                if (result)
+                {
+                    result = unitOfWork.Complete();
+                }
+
+                Assert.AreEqual(true, result);
+            }
+        }
+
+        [TestMethod]
+        public void DeleteNoAuthorTest()
+        {
+            using (var unitOfWork = new UnitOfWork(new AppDbContext()))
+            {
+                var author = new Author();
+
+
+                var result = unitOfWork.Authors.Remove(author);
+                if (result)
+                {
+                    result = unitOfWork.Complete();
+                }
+
+                Assert.AreEqual(false, result);
+            }
+        }
+
+        [TestMethod]
+        public void DeleteAuthorNullTest()
+        {
+            using (var unitOfWork = new UnitOfWork(new AppDbContext()))
+            {
+                var result = unitOfWork.Authors.Remove(null);
                 if (result)
                 {
                     result = unitOfWork.Complete();
