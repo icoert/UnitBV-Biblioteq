@@ -26,11 +26,6 @@ namespace UnitBV_Biblioteq_Tests
 
                 var result = obj.Add(author);
 
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
-
                 Assert.AreEqual(true, result);
             }
         }
@@ -42,11 +37,6 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var author = new Author() {Firstname = "Test11", Lastname = "Test12"};
                 var result = unitOfWork.Authors.Add(author);
-
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
 
                 Assert.AreEqual(true, result);
             }
@@ -60,11 +50,6 @@ namespace UnitBV_Biblioteq_Tests
                 var author = new Author() { Firstname = "", Lastname = "" };
                 var result = unitOfWork.Authors.Add(author);
 
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
-
                 Assert.AreEqual(false, result);
             }
         }
@@ -76,11 +61,6 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var author = new Author() { Firstname = null, Lastname = null };
                 var result = unitOfWork.Authors.Add(author);
-
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
 
                 Assert.AreEqual(false, result);
             }
@@ -94,11 +74,6 @@ namespace UnitBV_Biblioteq_Tests
                 var author = new Author() { Firstname = "Test21"};
                 var result = unitOfWork.Authors.Add(author);
 
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
-
                 Assert.AreEqual(false, result);
             }
         }
@@ -110,11 +85,6 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var author = new Author() { Lastname = "Test22" };
                 var result = unitOfWork.Authors.Add(author);
-
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
 
                 Assert.AreEqual(false, result);
             }
@@ -134,11 +104,6 @@ namespace UnitBV_Biblioteq_Tests
 
                 var result = obj.EditAuthor(author);
 
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
-
                 Assert.AreEqual(true, result);
             }
         }
@@ -157,10 +122,6 @@ namespace UnitBV_Biblioteq_Tests
                 author.Lastname = "Edited";
 
                 var result = unitOfWork.Authors.EditAuthor(author);
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
 
                 var editedAuthor = unitOfWork.Authors.Get(author.Id);
 
@@ -179,11 +140,6 @@ namespace UnitBV_Biblioteq_Tests
 
                 var result = unitOfWork.Authors.EditAuthor(author);
 
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
-
                 Assert.AreEqual(false, result);
             }
         }
@@ -194,11 +150,6 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var result = unitOfWork.Authors.EditAuthor(null);
-
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
 
                 Assert.AreEqual(false, result);
             }
@@ -212,16 +163,10 @@ namespace UnitBV_Biblioteq_Tests
                 var author = new Author() {Firstname = "Test41", Lastname = "Test42"};
 
                 unitOfWork.Authors.Add(author);
-                unitOfWork.Complete();
 
                 author.Firstname = "Edited";
 
                 var result = unitOfWork.Authors.EditAuthor(author);
-
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
 
                 var editedAuthor = unitOfWork.Authors.Get(author.Id);
                 Assert.AreEqual(true, result);
@@ -237,16 +182,10 @@ namespace UnitBV_Biblioteq_Tests
                 var author = new Author() { Firstname = "Test41", Lastname = "Test42" };
 
                 unitOfWork.Authors.Add(author);
-                unitOfWork.Complete();
 
                 author.Firstname = "";
 
                 var result = unitOfWork.Authors.EditAuthor(author);
-
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
 
                 Assert.AreEqual(false, result);
             }
@@ -266,11 +205,6 @@ namespace UnitBV_Biblioteq_Tests
 
                 var result = unitOfWork.Authors.EditAuthor(author);
 
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
-
                 Assert.AreEqual(false, result);
             }
         }
@@ -283,16 +217,10 @@ namespace UnitBV_Biblioteq_Tests
                 var author = new Author() { Firstname = "Test51", Lastname = "Test52" };
 
                 unitOfWork.Authors.Add(author);
-                unitOfWork.Complete();
 
                 author.Lastname = "Edited";
 
                 var result = unitOfWork.Authors.EditAuthor(author);
-
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
 
                 var editedAuthor = unitOfWork.Authors.Get(author.Id);
                 Assert.AreEqual(true, result);
@@ -308,16 +236,11 @@ namespace UnitBV_Biblioteq_Tests
                 var author = new Author() { Firstname = "Test61", Lastname = "Test62" };
 
                 unitOfWork.Authors.Add(author);
-                unitOfWork.Complete();
 
                 author.Lastname = "";
 
                 var result = unitOfWork.Authors.EditAuthor(author);
 
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
 
                 Assert.AreEqual(false, result);
             }
@@ -331,16 +254,10 @@ namespace UnitBV_Biblioteq_Tests
                 var author = new Author() { Firstname = "Test71", Lastname = "Test72" };
 
                 unitOfWork.Authors.Add(author);
-                unitOfWork.Complete();
 
                 author.Lastname = null;
 
                 var result = unitOfWork.Authors.EditAuthor(author);
-
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
 
                 Assert.AreEqual(false, result);
             }
@@ -360,11 +277,6 @@ namespace UnitBV_Biblioteq_Tests
 
                 var result = obj.Remove(author);
 
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
-
                 Assert.AreEqual(true, result);
             }
         }
@@ -377,14 +289,9 @@ namespace UnitBV_Biblioteq_Tests
                 var author = new Author() { Firstname = "Test81", Lastname = "Test82" };
 
                 unitOfWork.Authors.Add(author);
-                unitOfWork.Complete();
 
 
                 var result = unitOfWork.Authors.Remove(author);
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
 
                 Assert.AreEqual(true, result);
             }
@@ -399,10 +306,6 @@ namespace UnitBV_Biblioteq_Tests
 
 
                 var result = unitOfWork.Authors.Remove(author);
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
 
                 Assert.AreEqual(false, result);
             }
@@ -414,10 +317,6 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var result = unitOfWork.Authors.Remove(null);
-                if (result)
-                {
-                    result = unitOfWork.Complete();
-                }
 
                 Assert.AreEqual(false, result);
             }

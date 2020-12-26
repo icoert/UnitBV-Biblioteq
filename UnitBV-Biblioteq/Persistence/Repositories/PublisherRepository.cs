@@ -31,6 +31,9 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
                 if (existing != null)
                 {
                     existing.Name = publisher.Name;
+                    
+                    AppDbContext.SaveChanges();
+
                     Logger.Info($"Publisher with id={publisher.Id} was updated.");
                 }
                 else

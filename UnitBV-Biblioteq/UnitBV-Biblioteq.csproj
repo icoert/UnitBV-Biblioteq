@@ -83,6 +83,10 @@
     <Compile Include="Migrations\202012200041280_UpdateTables.designer.cs">
       <DependentUpon>202012200041280_UpdateTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012252030348_UpdateUserTable.cs" />
+    <Compile Include="Migrations\202012252030348_UpdateUserTable.designer.cs">
+      <DependentUpon>202012252030348_UpdateUserTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\AppDbContext.cs" />
     <Compile Include="Persistence\Repositories\BookBorrowRepository.cs" />
@@ -107,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012200041280_UpdateTables.resx">
       <DependentUpon>202012200041280_UpdateTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012252030348_UpdateUserTable.resx">
+      <DependentUpon>202012252030348_UpdateUserTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

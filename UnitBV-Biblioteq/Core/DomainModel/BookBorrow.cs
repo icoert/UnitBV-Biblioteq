@@ -9,7 +9,7 @@ namespace UnitBV_Biblioteq.Core.DomainModel
         public int Id { get; set; }
         public virtual User Reader { get; set; }
         public virtual User Employee { get; set; }
-        public virtual  List<BookEdition> Books{ get; set; }
+        public virtual List<BookEdition> Books{ get; set; }
         public DateTime BorrowDate { get; set; }
         public DateTime LastReBorrowDate { get; set; }
         public DateTime? ReturnDate { get; set; }

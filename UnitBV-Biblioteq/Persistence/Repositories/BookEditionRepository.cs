@@ -43,6 +43,9 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
                     existing.Year = edition.Year;
                     existing.Publisher = edition.Publisher;
                     existing.Book = edition.Book;
+                    
+                    AppDbContext.SaveChanges();
+
                     Logger.Info($"Book edition with id={edition.Id} was updated.");
                 }
                 else

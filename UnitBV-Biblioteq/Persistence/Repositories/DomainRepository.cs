@@ -33,6 +33,9 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
                 {
                     existing.Name = domain.Name;
                     existing.Parent = domain.Parent;
+                    
+                    AppDbContext.SaveChanges();
+
                     Logger.Info($"Domain with id={domain.Id} was updated.");
                 }
                 else

@@ -33,6 +33,8 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
                     existing.Firstname = author.Firstname;
                     existing.Lastname = author.Lastname;
 
+                    AppDbContext.SaveChanges();
+
                     Logger.Info($"Author with id={author.Id} was updated.");
                 }
                 else

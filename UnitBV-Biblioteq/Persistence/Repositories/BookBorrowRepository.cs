@@ -18,8 +18,32 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
         private static readonly ILog Logger = LogManager.GetLogger(typeof(BookBorrowRepository));
         private AppDbContext AppDbContext => Context as AppDbContext;
 
-        public IEnumerable<BookBorrow> BookBorrows => AppDbContext.Set<BookBorrow>();
+        public IEnumerable<BookBorrow> BookBorrows => AppDbContext.BookBorrows;
 
+        public new bool Add(BookBorrow borrow)
+        {
+            try
+            {
+                if (!this.IsValidObject(borrow))
+                {
+                    Logger.Info("Failed to add book borrow.");
+                    return false;
+                }
+
+                borrow.LastReBorrowDate = borrow.BorrowDate;
+                AppDbContext.BookBorrows.Add(borrow);
+                AppDbContext.SaveChanges();
+                Logger.Info($"New book borrow was added(id={borrow.Id}).");
+            }
+            catch (Exception ex)
+            {
+                Logger.Info("Failed to add book borrow.");
+                Logger.Error(ex.Message, ex);
+                return false;
+            }
+
+            return true;
+        }
         public bool EditBookBorrow(BookBorrow borrow)
         {
             try
@@ -46,6 +70,7 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
                     existing.Reader = borrow.Reader;
                     existing.ReturnDate = borrow.ReturnDate;
 
+                    AppDbContext.SaveChanges();
                     Logger.Info($"Book borrow with id={borrow.Id} was updated.");
                 }
                 else
@@ -88,6 +113,8 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
                         return false;
                     }
 
+                    AppDbContext.SaveChanges();
+
                     Logger.Info($"Book borrow with id={borrow.Id} was updated.");
                 }
                 else
@@ -115,6 +142,8 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
                     existing.IsReturned = true;
                     existing.ReturnDate = DateTime.Now;
 
+                    AppDbContext.SaveChanges();
+
                     Logger.Info($"Book borrow with id={borrow.Id} was updated.");
                 }
                 else
@@ -132,7 +161,7 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return true;
         }
 
-        public bool IsValidObject(BookBorrow borrow)
+        private bool IsValidObject(BookBorrow borrow)
         {
             var maxBooksPerBorrow = int.Parse(ConfigurationManager.AppSettings["MaxBooksPerBorrow"]);
             var maxBooksPerPeriod = int.Parse(ConfigurationManager.AppSettings["MaxBooksPerPeriod"]);
@@ -409,12 +438,12 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return false;
         }
 
-        private bool AreBooksAvailable(IEnumerable<BookEdition> books)
+        private bool AreBooksAvailable(List<BookEdition> books)
         {
             foreach (var book in books)
             {
                 var borrows = AppDbContext.BookBorrows
-                                                .Where(b => b.IsReturned == false);
+                    .Where(b => b.IsReturned == false);
                 var borrowedCopies = 0;
                 foreach (var borrow in borrows)
                 {

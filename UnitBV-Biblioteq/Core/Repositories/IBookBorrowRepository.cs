@@ -9,6 +9,5 @@ namespace UnitBV_Biblioteq.Core.Repositories
         bool EditBookBorrow(BookBorrow borrow);
         bool ReBorrowBook(BookBorrow borrow);
         bool ReturnBooks(BookBorrow borrow);
-        bool IsValidObject(BookBorrow borrow);
     }
 }

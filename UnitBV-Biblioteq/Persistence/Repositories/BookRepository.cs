@@ -51,6 +51,9 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
                     existing.Title = book.Title;
                     existing.Domains = book.Domains;
                     existing.Authors = book.Authors;
+                    
+                    AppDbContext.SaveChanges();
+
                     Logger.Info($"Book with id={book.Id} was updated.");
                 }
                 else

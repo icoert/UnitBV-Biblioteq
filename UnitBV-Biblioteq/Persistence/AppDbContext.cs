@@ -8,7 +8,6 @@ namespace UnitBV_Biblioteq.Persistence
         public AppDbContext()
             :base("DefaultConnection")
         {
-            Configuration.LazyLoadingEnabled = false;
         }
 
         public virtual DbSet<Book> Books { get; set; }
