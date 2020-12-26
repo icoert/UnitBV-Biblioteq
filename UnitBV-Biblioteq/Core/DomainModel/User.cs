@@ -1,11 +1,16 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace UnitBV_Biblioteq.Core.DomainModel
 {
     public class User
     {
         public int Id { get; set; }
+        
+        [Required]
         public string Firstname { get; set; }
+        
+        [Required]
         public string Lastname { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
