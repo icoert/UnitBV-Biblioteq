@@ -18,6 +18,7 @@ namespace UnitBV_Biblioteq.Persistence
             Books = new BookRepository(_context);
             Domains = new DomainRepository(_context);
             Publishers = new PublisherRepository(_context);
+            Users = new UserRepository(_context);
         }
 
         public void Dispose()
@@ -31,6 +32,7 @@ namespace UnitBV_Biblioteq.Persistence
         public IBookRepository Books { get; set; }
         public IDomainRepository Domains { get; set; }
         public IPublisherRepository Publishers { get; set; }
+        public IUserRepository Users { get; set; }
 
         public bool Complete()
         {

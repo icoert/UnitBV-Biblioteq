@@ -24,6 +24,11 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
         {
             try
             {
+                if (borrow == null)
+                {
+                    Logger.Info("Failed to add null book borrow.");
+                    return false;
+                }
                 if (!this.IsValidObject(borrow))
                 {
                     Logger.Info("Failed to add book borrow.");
@@ -44,12 +49,14 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
 
             return true;
         }
+        
         public bool EditBookBorrow(BookBorrow borrow)
         {
             try
             {
                 if (borrow == null)
                 {
+                    Logger.Info("Failed to add null book borrow.");
                     return false;
                 }
                 var existing = AppDbContext.BookBorrows.FirstOrDefault(a => a.Id == borrow.Id);
@@ -93,6 +100,11 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
         {
             try
             {
+                if (borrow == null)
+                {
+                    Logger.Info("Failed to reborrow null book borrow.");
+                    return false;
+                }
                 var reborrowLimit = int.Parse(ConfigurationManager.AppSettings["ReBorrowLimit"]);
 
                 var existing = AppDbContext.BookBorrows.FirstOrDefault(a => a.Id == borrow.Id);
@@ -138,6 +150,11 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
         {
             try
             {
+                if (borrow == null)
+                {
+                    Logger.Info("Failed to return null book borrow.");
+                    return false;
+                }
                 var existing = AppDbContext.BookBorrows.FirstOrDefault(a => a.Id == borrow.Id);
                 if (existing != null)
                 {

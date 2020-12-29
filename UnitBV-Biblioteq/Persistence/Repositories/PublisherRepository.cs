@@ -25,6 +25,7 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             {
                 if (publisher == null)
                 {
+                    Logger.Info($"Failed to edit null publisher.");
                     return false;
                 }
                 var existing = AppDbContext.Publishers.FirstOrDefault(a => a.Id == publisher.Id);

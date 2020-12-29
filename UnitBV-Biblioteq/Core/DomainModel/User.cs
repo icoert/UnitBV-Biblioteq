@@ -34,5 +34,10 @@ namespace UnitBV_Biblioteq.Core.DomainModel
         {
             return Regex.Match(this.PhoneNumber, @"^(\+[0-9]{11})$").Success;
         }
+
+        public bool HasValidAddress()
+        {
+            return Regex.Match(this.Address, @"\s*\S+(?:\s+\S+){3}").Success; // Street OneStreet, Number 999
+        }
     }
 }

@@ -76,7 +76,9 @@
   <ItemGroup>
     <Compile Include="AuthorsTests.cs" />
     <Compile Include="BookBorrowTests.cs" />
+    <Compile Include="BookEditionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsersTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

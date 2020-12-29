@@ -73,6 +73,7 @@
     <Compile Include="Core\Repositories\IBookEditionRepository.cs" />
     <Compile Include="Core\Repositories\IBookRepository.cs" />
     <Compile Include="Core\Repositories\IDomainRepository.cs" />
+    <Compile Include="Core\Repositories\IUserRepository.cs" />
     <Compile Include="Core\Repositories\IPublisherRepository.cs" />
     <Compile Include="Core\Repositories\IRepository.cs" />
     <Compile Include="Migrations\202012192027064_InitialMigration.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Persistence\Repositories\BookEditionRepository.cs" />
     <Compile Include="Persistence\Repositories\BookRepository.cs" />
     <Compile Include="Persistence\Repositories\DomainRepository.cs" />
+    <Compile Include="Persistence\Repositories\UserRepository.cs" />
     <Compile Include="Persistence\Repositories\PublisherRepository.cs" />
     <Compile Include="Persistence\Repositories\AuthorRepository.cs" />
     <Compile Include="Persistence\Repositories\Repository.cs" />

@@ -16,6 +16,7 @@ namespace UnitBV_Biblioteq.Persistence
         public virtual DbSet<BookEdition> BookEditions { get; set; }
         public virtual DbSet<BookBorrow> BookBorrows { get; set; }
         public virtual DbSet<Publisher> Publishers { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         public static AppDbContext Create()
         {

@@ -25,6 +25,7 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             {
                 if (edition == null)
                 {
+                    Logger.Info("Failed to edit null book edition.");
                     return false;
                 }
                 var existing = AppDbContext.Set<BookEdition>().FirstOrDefault(a => a.Id == edition.Id);

@@ -25,6 +25,7 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             {
                 if (author == null)
                 {
+                    Logger.Info("Failed to edit null author.");
                     return false;
                 }
                 var existing = AppDbContext.Authors.FirstOrDefault(a => a.Id == author.Id); 
@@ -44,7 +45,9 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             }
             catch (Exception ex)
             {
-                Logger.Info($"Failed to update author with id {author.Id}.");
+                Logger.Info(author != null
+                    ? $"Failed to update author with id {author.Id}."
+                    : $"Failed to update author.");
                 Logger.Error(ex.Message, ex);
 
                 return false;

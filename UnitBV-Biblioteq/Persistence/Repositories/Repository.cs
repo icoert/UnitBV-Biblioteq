@@ -78,6 +78,11 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
         {
             try
             {
+                if (entity == null)
+                {
+                    Logger.Info("Failed to add null entity.");
+                    return false;
+                }
                 Context.Set<TEntity>().Add(entity);
                 
                 Context.SaveChanges();
@@ -100,6 +105,11 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
         {
             try
             {
+                if (entity == null)
+                {
+                    Logger.Info("Failed to remove null entity.");
+                    return false;
+                }
                 Context.Set<TEntity>().Remove(entity);
                 
                 Context.SaveChanges();
