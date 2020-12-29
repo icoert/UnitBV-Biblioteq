@@ -32,7 +32,7 @@ namespace UnitBV_Biblioteq.Core.DomainModel
 
         public bool HasValidPhoneNumber()
         {
-            return Regex.Match(this.PhoneNumber, @"^(\+[0-9]{11})$").Success;
+            return Regex.Match(this.PhoneNumber, @"^(\+[0-9]{10})$").Success;
         }
 
         public bool HasValidAddress()

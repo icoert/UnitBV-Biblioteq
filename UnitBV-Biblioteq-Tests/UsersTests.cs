@@ -82,7 +82,7 @@ namespace UnitBV_Biblioteq_Tests
                     Firstname = "UserFNTestCase",
                     Lastname = "UseLNTestCase",
                     Email = "testcase@mail.com",
-                    PhoneNumber = "+0755555555",
+                    PhoneNumber = "+0755567454",
                     Address = "Street FarAway, number 999"
                 };
                 var result = unitOfWork.Users.Add(user);

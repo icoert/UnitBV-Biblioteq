@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using UnitBV_Biblioteq.Core.DomainModel;
@@ -36,7 +32,7 @@ namespace UnitBV_Biblioteq_Tests
         }
 
         [TestMethod]
-        public void EditBookEditionMockTest()
+        public void EditBookMockTest()
         {
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
@@ -54,7 +50,7 @@ namespace UnitBV_Biblioteq_Tests
         }
 
         [TestMethod]
-        public void DeleteBookEditionMockTest()
+        public void DeleteBookMockTest()
         {
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
