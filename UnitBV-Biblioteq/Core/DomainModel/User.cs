@@ -87,7 +87,7 @@ namespace UnitBV_Biblioteq.Core.DomainModel
         /// <returns><c>true</c> if [has valid phone number]; otherwise, <c>false</c>.</returns>
         public bool HasValidPhoneNumber()
         {
-            return Regex.Match(this.PhoneNumber, @"^(\+[0-9]{10})$").Success;
+            return Regex.Match(this.PhoneNumber, @"^(\+[0-9]{11})$").Success;
         }
 
         /// <summary>

@@ -82,8 +82,8 @@ namespace UnitBV_Biblioteq_Tests
                     Firstname = "UserFNTestCase",
                     Lastname = "UseLNTestCase",
                     Email = "testcase@mail.com",
-                    PhoneNumber = "+0755567454",
-                    Address = "Street FarAway, number 999"
+                    PhoneNumber = "+40755567454",
+                    Address = "Street FarAway, number 999",
                 };
                 var result = unitOfWork.Users.Add(user);
                 Assert.AreEqual(true, result);
@@ -117,7 +117,7 @@ namespace UnitBV_Biblioteq_Tests
                 {
                     Firstname = "UserFNTestCase",
                     Lastname = "UseLNTestCase",
-                    PhoneNumber = "+40792696111"
+                    PhoneNumber = "+40792696111",
                 };
                 var result = unitOfWork.Users.Add(user);
                 Assert.AreEqual(true, result);
@@ -566,7 +566,7 @@ namespace UnitBV_Biblioteq_Tests
                     Lastname = "UserLNTestCase",
                     Email = "testCase@email.com",
                     Address = "Street OneStreet, number 69",
-                    PhoneNumber = "+0745234493"
+                    PhoneNumber = "+40745234493",
                 };
 
                 unitOfWork.Users.Add(user);
@@ -590,12 +590,12 @@ namespace UnitBV_Biblioteq_Tests
                     Lastname = "UserLNTestCase",
                     Email = "testCase@email.com",
                     Address = "Street OneStreet, number 69",
-                    PhoneNumber = "+0745234493"
+                    PhoneNumber = "+40745234493",
                 };
 
                 unitOfWork.Users.Add(user);
 
-                user.PhoneNumber = "+0745234492";
+                user.PhoneNumber = "+40745234492";
 
                 var result = unitOfWork.Users.EditUser(user);
 
@@ -614,7 +614,7 @@ namespace UnitBV_Biblioteq_Tests
                     Lastname = "UserLNTestCase",
                     Email = "testCase@email.com",
                     Address = "Street OneStreet, number 69",
-                    PhoneNumber = "+0745234493"
+                    PhoneNumber = "+40745234493",
                 };
 
                 unitOfWork.Users.Add(user);
