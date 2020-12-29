@@ -32,15 +32,17 @@ namespace UnitBV_Biblioteq.Core.DomainModel
 
             public bool IsValid()
             {
-            if (!int.TryParse(this.Year, out _))
-            {
-                return false;
-            }
+                if (!int.TryParse(this.Year, out _))
+                {
+                    return false;
+                }
 
-            if (this.Copies < 0 || this.CopiesLibrary< 0 || this.Pages < 1)
-                return false;
+                if (this.Copies < 0 || this.CopiesLibrary< 0 || this.Pages < 1)
+                {
+                    return false;
+                }
 
-            return this.CopiesLibrary <= this.Copies;
+                return this.CopiesLibrary <= this.Copies;
             }
 
     }

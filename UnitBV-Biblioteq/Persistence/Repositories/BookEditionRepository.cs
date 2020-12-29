@@ -19,6 +19,35 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
 
         public IEnumerable<BookEdition> BookEditions => AppDbContext.Set<BookEdition>();
 
+        public new bool Add(BookEdition bookEdition)
+        {
+            try
+            {
+                if (bookEdition == null)
+                {
+                    Logger.Info("Failed to add null book edition.");
+                    return false;
+                }
+                if (!bookEdition.IsValid())
+                {
+                    Logger.Info("Failed to add book edition.");
+                    return false;
+                }
+
+                AppDbContext.BookEditions.Add(bookEdition);
+                AppDbContext.SaveChanges();
+                Logger.Info($"New book edition was added(id={bookEdition.Id}).");
+            }
+            catch (Exception ex)
+            {
+                Logger.Info("Failed to add book edition.");
+                Logger.Error(ex.Message, ex);
+                return false;
+            }
+
+            return true;
+        }
+        
         public bool EditBookEdition(BookEdition edition)
         {
             try
