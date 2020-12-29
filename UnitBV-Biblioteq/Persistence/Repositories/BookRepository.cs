@@ -19,6 +19,35 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
 
         public IEnumerable<Book> Books => AppDbContext.Set<Book>();
 
+        public new bool Add(Book book)
+        {
+            try
+            {
+                if (book== null)
+                {
+                    Logger.Info("Failed to add null book.");
+                    return false;
+                }
+                if (!this.IsValid(book))
+                {
+                    Logger.Info("Failed to add book.");
+                    return false;
+                }
+
+                AppDbContext.Books.Add(book);
+                AppDbContext.SaveChanges();
+                Logger.Info($"New book was added(id={book.Id}).");
+            }
+            catch (Exception ex)
+            {
+                Logger.Info("Failed to add book.");
+                Logger.Error(ex.Message, ex);
+                return false;
+            }
+
+            return true;
+        }
+        
         public bool EditBook(Book book)
         {
             try
@@ -76,19 +105,16 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
         {
             if (string.IsNullOrEmpty(book.Title) || string.IsNullOrWhiteSpace(book.Title))
             {
-                Logger.Info($"Failed to add book.");
                 return false;
             }
 
             if (book.Authors == null || book.Authors.Count == 0 || book.Domains == null || book.Domains.Count == 0)
             {
-                Logger.Info($"Failed to add book.");
                 return false;
             }
 
             if (!book.DomainStructure())
             {
-                Logger.Info($"Failed to add book.");
                 return false;
             }
 
