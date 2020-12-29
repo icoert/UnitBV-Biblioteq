@@ -1,25 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using log4net;
-using UnitBV_Biblioteq.Core.DomainModel;
-using UnitBV_Biblioteq.Core.Repositories;
-
+﻿// ***********************************************************************
+// Assembly         : UnitBV-Biblioteq
+// Author           : silvi
+// Created          : 12-20-2020
+//
+// Last Modified By : silvi
+// Last Modified On : 12-29-2020
+// ***********************************************************************
+// <copyright file="BookBorrowRepository.cs" company="Transilvanya University of Brasov">
+//     Copyright © Silviu-Daniel Vijiala 2020
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 namespace UnitBV_Biblioteq.Persistence.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Linq;
+    using log4net;
+    using UnitBV_Biblioteq.Core.DomainModel;
+    using UnitBV_Biblioteq.Core.Repositories;
+
+    /// <summary>
+    /// Class BookBorrowRepository.
+    /// Implements the <see cref="UnitBV_Biblioteq.Persistence.Repositories.Repository{UnitBV_Biblioteq.Core.DomainModel.BookBorrow}" />
+    /// Implements the <see cref="UnitBV_Biblioteq.Core.Repositories.IBookBorrowRepository" />
+    /// </summary>
+    /// <seealso cref="UnitBV_Biblioteq.Persistence.Repositories.Repository{UnitBV_Biblioteq.Core.DomainModel.BookBorrow}" />
+    /// <seealso cref="UnitBV_Biblioteq.Core.Repositories.IBookBorrowRepository" />
     public class BookBorrowRepository : Repository<BookBorrow>, IBookBorrowRepository
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BookBorrowRepository" /> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public BookBorrowRepository(AppDbContext context) : base(context)
         {
-            
         }
 
+        /// <summary>
+        /// The logger
+        /// </summary>
         private static readonly ILog Logger = LogManager.GetLogger(typeof(BookBorrowRepository));
+
+        /// <summary>
+        /// Gets the application database context.
+        /// </summary>
+        /// <value>The application database context.</value>
         private AppDbContext AppDbContext => Context as AppDbContext;
 
+        /// <summary>
+        /// Gets the book borrows.
+        /// </summary>
+        /// <value>The book borrows.</value>
         public IEnumerable<BookBorrow> BookBorrows => AppDbContext.BookBorrows;
 
+        /// <summary>
+        /// Adds the specified borrow.
+        /// </summary>
+        /// <param name="borrow">The borrow.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public new bool Add(BookBorrow borrow)
         {
             try
@@ -49,7 +89,12 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
 
             return true;
         }
-        
+
+        /// <summary>
+        /// Edits the book borrow.
+        /// </summary>
+        /// <param name="borrow">The borrow.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool EditBookBorrow(BookBorrow borrow)
         {
             try
@@ -98,6 +143,11 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return true;
         }
 
+        /// <summary>
+        /// Res the borrow book.
+        /// </summary>
+        /// <param name="borrow">The borrow.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool ReBorrowBook(BookBorrow borrow)
         {
             try
@@ -149,6 +199,11 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return true;
         }
 
+        /// <summary>
+        /// Returns the books.
+        /// </summary>
+        /// <param name="borrow">The borrow.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool ReturnBooks(BookBorrow borrow)
         {
             try
@@ -186,6 +241,11 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return true;
         }
 
+        /// <summary>
+        /// Determines whether [is valid object] [the specified borrow].
+        /// </summary>
+        /// <param name="borrow">The borrow.</param>
+        /// <returns><c>true</c> if [is valid object] [the specified borrow]; otherwise, <c>false</c>.</returns>
         private bool IsValidObject(BookBorrow borrow)
         {
             var maxBooksPerBorrow = int.Parse(ConfigurationManager.AppSettings["MaxBooksPerBorrow"]);
@@ -242,7 +302,6 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
                 return false;
             }
 
-
             if (borrow.Books.Count >= 3 && !this.HasTwoDistinctDomains(borrow.Books))
             {
                 return false;
@@ -281,6 +340,12 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return true;
         }
 
+        /// <summary>
+        /// Determines whether [is valid re borrow] [the specified borrow].
+        /// </summary>
+        /// <param name="borrow">The borrow.</param>
+        /// <param name="reborrowLimit">The reborrow limit.</param>
+        /// <returns><c>true</c> if [is valid re borrow] [the specified borrow]; otherwise, <c>false</c>.</returns>
         private bool IsValidReBorrow(BookBorrow borrow, int reborrowLimit)
         {
             var limitDate = DateTime.Now.AddMonths(-3);
@@ -305,6 +370,11 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return false;
         }
 
+        /// <summary>
+        /// Determines whether [has two distinct domains] [the specified books].
+        /// </summary>
+        /// <param name="books">The books.</param>
+        /// <returns><c>true</c> if [has two distinct domains] [the specified books]; otherwise, <c>false</c>.</returns>
         private bool HasTwoDistinctDomains(List<BookEdition> books)
         {
             var nrDomain = 0;
@@ -339,6 +409,13 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return nrDomain >= 2;
         }
 
+        /// <summary>
+        /// Determines whether [has reached book limit per period] [the specified borrow].
+        /// </summary>
+        /// <param name="borrow">The borrow.</param>
+        /// <param name="maxBooksPerPeriod">The maximum books per period.</param>
+        /// <param name="periodInDaysMaxBookPerPeriod">The period in days maximum book per period.</param>
+        /// <returns><c>true</c> if [has reached book limit per period] [the specified borrow]; otherwise, <c>false</c>.</returns>
         private bool HasReachedBookLimitPerPeriod(BookBorrow borrow, int maxBooksPerPeriod, int periodInDaysMaxBookPerPeriod)
         {
             var limitDate = DateTime.Now.AddDays(-periodInDaysMaxBookPerPeriod);
@@ -357,6 +434,13 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return numberOfBooks + borrow.Books.Count > maxBooksPerPeriod;
         }
 
+        /// <summary>
+        /// Determines whether [has reached book limit per same domain] [the specified borrow].
+        /// </summary>
+        /// <param name="borrow">The borrow.</param>
+        /// <param name="maxBooksInSameDomain">The maximum books in same domain.</param>
+        /// <param name="periodInMonthsForSameDomain">The period in months for same domain.</param>
+        /// <returns><c>true</c> if [has reached book limit per same domain] [the specified borrow]; otherwise, <c>false</c>.</returns>
         private bool HasReachedBookLimitPerSameDomain(BookBorrow borrow, int maxBooksInSameDomain, int periodInMonthsForSameDomain)
         {
             var limitDate = DateTime.Now.AddMonths(-periodInMonthsForSameDomain);
@@ -389,6 +473,12 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return false;
         }
 
+        /// <summary>
+        /// Determines whether [has reached book limit per employee] [the specified borrow].
+        /// </summary>
+        /// <param name="borrow">The borrow.</param>
+        /// <param name="maxBooksPerEmployee">The maximum books per employee.</param>
+        /// <returns><c>true</c> if [has reached book limit per employee] [the specified borrow]; otherwise, <c>false</c>.</returns>
         private bool HasReachedBookLimitPerEmployee(BookBorrow borrow, int maxBooksPerEmployee)
         {
             var borrowsInPeriod = AppDbContext.BookBorrows.Where(b => b.Employee.Id == borrow.Employee.Id
@@ -414,6 +504,12 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return false;
         }
 
+        /// <summary>
+        /// Determines whether [is valid same book borrow] [the specified borrow].
+        /// </summary>
+        /// <param name="borrow">The borrow.</param>
+        /// <param name="periodInDaysForSameBookBorrow">The period in days for same book borrow.</param>
+        /// <returns><c>true</c> if [is valid same book borrow] [the specified borrow]; otherwise, <c>false</c>.</returns>
         private bool IsValidSameBookBorrow(BookBorrow borrow, int periodInDaysForSameBookBorrow)
         {
             var limitDate = DateTime.Now.AddDays(-periodInDaysForSameBookBorrow);
@@ -438,6 +534,12 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return true;
         }
 
+        /// <summary>
+        /// Determines whether [has reached maximum books per day] [the specified borrow].
+        /// </summary>
+        /// <param name="borrow">The borrow.</param>
+        /// <param name="maxBooksPerDay">The maximum books per day.</param>
+        /// <returns><c>true</c> if [has reached maximum books per day] [the specified borrow]; otherwise, <c>false</c>.</returns>
         private bool HasReachedMaxBooksPerDay(BookBorrow borrow, int maxBooksPerDay)
         {
             var borrowsOnDay = AppDbContext.BookBorrows.Where(b => b.Reader.Id == borrow.Reader.Id
@@ -463,6 +565,11 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return false;
         }
 
+        /// <summary>
+        /// Ares the books available.
+        /// </summary>
+        /// <param name="books">The books.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private bool AreBooksAvailable(List<BookEdition> books)
         {
             foreach (var book in books)

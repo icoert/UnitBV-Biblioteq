@@ -1,24 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using log4net;
-using UnitBV_Biblioteq.Core.DomainModel;
-using UnitBV_Biblioteq.Core.Repositories;
-
+﻿// ***********************************************************************
+// Assembly         : UnitBV-Biblioteq
+// Author           : silvi
+// Created          : 12-27-2020
+//
+// Last Modified By : silvi
+// Last Modified On : 12-29-2020
+// ***********************************************************************
+// <copyright file="UserRepository.cs" company="Transilvanya University of Brasov">
+//     Copyright © Silviu-Daniel Vijiala 2020
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 namespace UnitBV_Biblioteq.Persistence.Repositories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using log4net;
+    using UnitBV_Biblioteq.Core.DomainModel;
+    using UnitBV_Biblioteq.Core.Repositories;
+    /// <summary>
+    /// Class UserRepository.
+    /// Implements the <see cref="UnitBV_Biblioteq.Persistence.Repositories.Repository{UnitBV_Biblioteq.Core.DomainModel.User}" />
+    /// Implements the <see cref="UnitBV_Biblioteq.Core.Repositories.IUserRepository" />
+    /// </summary>
+    /// <seealso cref="UnitBV_Biblioteq.Persistence.Repositories.Repository{UnitBV_Biblioteq.Core.DomainModel.User}" />
+    /// <seealso cref="UnitBV_Biblioteq.Core.Repositories.IUserRepository" />
     public class UserRepository : Repository<User>, IUserRepository
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserRepository" /> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public UserRepository(AppDbContext context) : base(context)
         {
-            
         }
 
+        /// <summary>
+        /// The logger
+        /// </summary>
         private static readonly ILog Logger = LogManager.GetLogger(typeof(UserRepository));
+
+        /// <summary>
+        /// Gets the application database context.
+        /// </summary>
+        /// <value>The application database context.</value>
         private AppDbContext AppDbContext => Context as AppDbContext;
 
+        /// <summary>
+        /// Gets the users.
+        /// </summary>
+        /// <value>The users.</value>
         public IEnumerable<User> Users => AppDbContext.Set<User>();
 
+        /// <summary>
+        /// Adds the specified user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public new bool Add(User user)
         {
             try
@@ -48,6 +87,11 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return true;
         }
 
+        /// <summary>
+        /// Edits the user.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool EditUser(User user)
         {
             try
@@ -86,6 +130,11 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             return true;
         }
 
+        /// <summary>
+        /// Returns true if ... is valid.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns><c>true</c> if the specified user is valid; otherwise, <c>false</c>.</returns>
         private bool IsValid(User user)
         {
             if ((string.IsNullOrEmpty(user.Email) || string.IsNullOrWhiteSpace(user.Email)) &&

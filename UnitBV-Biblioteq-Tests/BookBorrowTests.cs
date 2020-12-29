@@ -20,12 +20,12 @@ namespace UnitBV_Biblioteq_Tests
             {
                 Title = "Fake Title For Test",
                 Authors = new List<Author> { new Author() { Firstname = "FNTestCase", Lastname = "LNTestCase" } },
-                Domains = new List<Domain> { new Domain() { Name = "DomainTestCase" } }
+                Domains = new List<Domain> { new Domain() { Name = "DomainTestCase" } },
             };
 
             var publisher = new Publisher
             {
-                Name = "PublisherTestCase"
+                Name = "PublisherTestCase",
             };
 
             var edition = new BookEdition
@@ -36,7 +36,7 @@ namespace UnitBV_Biblioteq_Tests
                 CopiesLibrary = 5,
                 Pages = 100,
                 Type = BookType.PaperBack,
-                Year = "2000"
+                Year = "2000",
             };
 
             return edition;
@@ -49,7 +49,7 @@ namespace UnitBV_Biblioteq_Tests
                 Firstname = "UserFNTestCase",
                 Lastname = "UserLNTestCase",
                 Email = "useremailtest@test.com",
-                UserType = userType
+                UserType = userType,
             };
 
             return user;
@@ -74,42 +74,42 @@ namespace UnitBV_Biblioteq_Tests
         public void EditBookBorrowMockTest()
         {
             var mock = new Mock<IBookBorrowRepository>();
-                mock.Setup(m => m.EditBookBorrow(It.IsAny<BookBorrow>())).Returns(true);
+            mock.Setup(m => m.EditBookBorrow(It.IsAny<BookBorrow>())).Returns(true);
 
-                var borrowBook = new BookBorrow();
-                var obj = mock.Object;
+            var borrowBook = new BookBorrow();
+            var obj = mock.Object;
 
-                var result = obj.EditBookBorrow(borrowBook);
+            var result = obj.EditBookBorrow(borrowBook);
 
-                Assert.AreEqual(true, result);
+            Assert.AreEqual(true, result);
         }
 
         [TestMethod]
         public void ReturnBorrowMockTest()
         {
             var mock = new Mock<IBookBorrowRepository>();
-                mock.Setup(m => m.ReturnBooks(It.IsAny<BookBorrow>())).Returns(true);
+            mock.Setup(m => m.ReturnBooks(It.IsAny<BookBorrow>())).Returns(true);
 
-                var borrowBook = new BookBorrow();
-                var obj = mock.Object;
+            var borrowBook = new BookBorrow();
+            var obj = mock.Object;
 
-                var result = obj.ReturnBooks(borrowBook);
+            var result = obj.ReturnBooks(borrowBook);
 
-                Assert.AreEqual(true, result);
+            Assert.AreEqual(true, result);
         }
 
         [TestMethod]
         public void ReBorrowMockTest()
         {
             var mock = new Mock<IBookBorrowRepository>();
-                mock.Setup(m => m.ReBorrowBook(It.IsAny<BookBorrow>())).Returns(true);
+            mock.Setup(m => m.ReBorrowBook(It.IsAny<BookBorrow>())).Returns(true);
 
-                var borrowBook = new BookBorrow();
-                var obj = mock.Object;
+            var borrowBook = new BookBorrow();
+            var obj = mock.Object;
 
-                var result = obj.ReBorrowBook(borrowBook);
+            var result = obj.ReBorrowBook(borrowBook);
 
-                Assert.AreEqual(true, result);
+            Assert.AreEqual(true, result);
         }
 
         [TestMethod]
@@ -133,13 +133,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrowBook = new BookBorrow
                 {
-                    Books = new List<BookEdition> { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition> { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -181,13 +181,13 @@ namespace UnitBV_Biblioteq_Tests
 
                 var borrowBook = new BookBorrow()
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = borrowsLimit + 1,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -201,16 +201,16 @@ namespace UnitBV_Biblioteq_Tests
         {
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
-                var book = CreateBookEditionForTests();
+                var book = this.CreateBookEditionForTests();
                 var borrowBook = new BookBorrow()
                 {
                     Books = new List<BookEdition>() { book, book },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -228,18 +228,18 @@ namespace UnitBV_Biblioteq_Tests
                 var maxBooksPerBorrow = int.Parse(ConfigurationManager.AppSettings["MaxBooksPerBorrow"]);
                 for (var i = 0; i <= maxBooksPerBorrow; i++)
                 {
-                    bookList.Add(CreateBookEditionForTests());
+                    bookList.Add(this.CreateBookEditionForTests());
                 }
                 
                 var borrowBook = new BookBorrow()
                 {
                     Books = bookList,
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -258,12 +258,12 @@ namespace UnitBV_Biblioteq_Tests
                 var borrowBook = new BookBorrow()
                 {
                     Books = bookList,
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -280,12 +280,12 @@ namespace UnitBV_Biblioteq_Tests
                 var borrowBook = new BookBorrow()
                 {
                     Books = null,
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -301,13 +301,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrowBook = new BookBorrow()
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = true,
                     ReBorrows = 0,
-                    ReturnDate = DateTime.Now.AddDays(-2)
+                    ReturnDate = DateTime.Now.AddDays(-2),
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -323,13 +323,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrowBook = new BookBorrow()
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now.AddDays(2),
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -345,13 +345,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrowBook = new BookBorrow()
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = null,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -367,13 +367,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrowBook = new BookBorrow()
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
                     Employee = null,
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -389,13 +389,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrowBook = new BookBorrow()
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
                     Employee = null,
                     Reader = null,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -411,13 +411,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrowBook = new BookBorrow()
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
                     Employee = new User(),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -433,13 +433,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrowBook = new BookBorrow()
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = new User(),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -455,13 +455,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrowBook = new BookBorrow()
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
                     Employee = new User(),
                     Reader = new User(),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -477,13 +477,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrowBook = new BookBorrow()
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Employee),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Employee),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -499,13 +499,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrowBook = new BookBorrow()
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Reader),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Reader),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -520,26 +520,27 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var domain = new Domain() { Name = "DomainTestCase" };
-                var bookList = new List<BookEdition>()
+                var bookList = new List<BookEdition>
                 {
-                    CreateBookEditionForTests(),
-                    CreateBookEditionForTests(),
-                    CreateBookEditionForTests(),
+                    this.CreateBookEditionForTests(),
+                    this.CreateBookEditionForTests(),
+                    this.CreateBookEditionForTests(),
                 };
 
                 foreach (var book in bookList)
                 {
-                    book.Book.Domains = new List<Domain>() {domain};
+                    book.Book.Domains = new List<Domain> { domain };
                 }
+                
                 var borrowBook = new BookBorrow()
                 {
                     Books = bookList,
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -554,28 +555,28 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var domain1 = new Domain() { Name = "DomainTestCase1" };
-                var domain2 = new Domain() { Name = "DomainTestCase2", Parent = domain1};
-                var domain3 = new Domain() { Name = "DomainTestCase3", Parent = domain1};
-                var bookList = new List<BookEdition>()
+                var domain2 = new Domain() { Name = "DomainTestCase2", Parent = domain1 };
+                var domain3 = new Domain() { Name = "DomainTestCase3", Parent = domain1 };
+                var bookList = new List<BookEdition>
                 {
-                    CreateBookEditionForTests(),
-                    CreateBookEditionForTests(),
-                    CreateBookEditionForTests(),
+                    this.CreateBookEditionForTests(),
+                    this.CreateBookEditionForTests(),
+                    this.CreateBookEditionForTests(),
                 };
 
-                bookList[0].Book.Domains = new List<Domain>() {domain1};
-                bookList[1].Book.Domains = new List<Domain>() {domain2};
-                bookList[2].Book.Domains = new List<Domain>() {domain3};
+                bookList[0].Book.Domains = new List<Domain> { domain1 };
+                bookList[1].Book.Domains = new List<Domain> { domain2 };
+                bookList[2].Book.Domains = new List<Domain> { domain3 };
 
                 var borrowBook = new BookBorrow()
                 {
                     Books = bookList,
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook);
@@ -591,36 +592,36 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var maxBooksPerPeriod = int.Parse(ConfigurationManager.AppSettings["MaxBooksPerPeriod"]); 
                 var periodInDaysForMaxBooksPerPeriod = int.Parse(ConfigurationManager.AppSettings["PeriodInDaysForMaxBooksPerPeriod"]); 
-                var reader = CreateUserForTests(UserType.Reader);
+                var reader = this.CreateUserForTests(UserType.Reader);
 
                 for (var i = 0; i < periodInDaysForMaxBooksPerPeriod; i++) // 14 days in this initial case
                 {
-                    var bookBorrow1 = new BookBorrow()
+                    var bookBorrow1 = new BookBorrow
                     {
-                        Books = new List<BookEdition>() { CreateBookEditionForTests(), CreateBookEditionForTests(), CreateBookEditionForTests() },
-                        Employee = CreateUserForTests(UserType.Employee),
+                        Books = new List<BookEdition> { this.CreateBookEditionForTests(), this.CreateBookEditionForTests(), this.CreateBookEditionForTests() },
+                        Employee = this.CreateUserForTests(UserType.Employee),
                         Reader = reader,
                         BorrowDate = DateTime.Now.AddDays(-i), // 3 books per day in this case
                         IsReturned = false,
                         ReBorrows = 0,
-                        ReturnDate = null
+                        ReturnDate = null,
                     };
 
-                    if ((i+1) * 3 < maxBooksPerPeriod)
+                    if ((i + 1) * 3 < maxBooksPerPeriod)
                     {
                         unitOfWork.BookBorrows.Add(bookBorrow1);
                     }
                 }
 
-                var borrowBook2 = new BookBorrow()
+                var borrowBook2 = new BookBorrow
                 {
-                    Books = new List<BookEdition>(){CreateBookEditionForTests(), CreateBookEditionForTests(), CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Books = new List<BookEdition> { this.CreateBookEditionForTests(), this.CreateBookEditionForTests(), this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook2);
@@ -634,38 +635,38 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var maxBooksInSameDomain = int.Parse(ConfigurationManager.AppSettings["MaxBooksInSameDomain"]);
-                var reader = CreateUserForTests(UserType.Reader);
-                var domain = new Domain() {Name = "DomainTestCase"};
+                var reader = this.CreateUserForTests(UserType.Reader);
+                var domain = new Domain() { Name = "DomainTestCase" };
 
                 for (var i = 0; i < maxBooksInSameDomain; i++)
                 {
-                    var book1 = CreateBookEditionForTests();
+                    var book1 = this.CreateBookEditionForTests();
                     book1.Book.Domains.Add(domain);
                     var bookBorrow1 = new BookBorrow()
                     {
                         Books = new List<BookEdition>() { book1 },
-                        Employee = CreateUserForTests(UserType.Employee),
+                        Employee = this.CreateUserForTests(UserType.Employee),
                         Reader = reader,
                         BorrowDate = DateTime.Now.AddDays(-i),
                         IsReturned = false,
                         ReBorrows = 0,
-                        ReturnDate = null
+                        ReturnDate = null,
                     };
 
                     unitOfWork.BookBorrows.Add(bookBorrow1);
                 }
 
-                var book2= CreateBookEditionForTests();
+                var book2 = this.CreateBookEditionForTests();
                 book2.Book.Domains.Add(domain);
                 var borrowBook2 = new BookBorrow()
                 {
                     Books = new List<BookEdition>() { book2 },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook2);
@@ -680,18 +681,18 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var periodInDaysForSameBookBorrowing = int.Parse(ConfigurationManager.AppSettings["PeriodInDaysForSameBookBorrowing"]); // 20 in initial case
-                var reader = CreateUserForTests(UserType.Reader);
+                var reader = this.CreateUserForTests(UserType.Reader);
 
-                var book = CreateBookEditionForTests();
+                var book = this.CreateBookEditionForTests();
                 var bookBorrow = new BookBorrow
                 {
                     Books = new List<BookEdition> { book },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now.AddDays(-periodInDaysForSameBookBorrowing - 1),
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(bookBorrow);
@@ -699,12 +700,12 @@ namespace UnitBV_Biblioteq_Tests
                 var sameBookBorrow = new BookBorrow
                 {
                     Books = new List<BookEdition>() { book },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(sameBookBorrow);
@@ -718,18 +719,18 @@ namespace UnitBV_Biblioteq_Tests
         {
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
-                var reader = CreateUserForTests(UserType.Reader);
+                var reader = this.CreateUserForTests(UserType.Reader);
 
-                var book = CreateBookEditionForTests();
+                var book = this.CreateBookEditionForTests();
                 var bookBorrow = new BookBorrow
                 {
                     Books = new List<BookEdition> { book },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(bookBorrow);
@@ -737,12 +738,12 @@ namespace UnitBV_Biblioteq_Tests
                 var sameBookBorrow = new BookBorrow
                 {
                     Books = new List<BookEdition> { book },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(sameBookBorrow);
@@ -757,19 +758,19 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var maxBooksPerDay = int.Parse(ConfigurationManager.AppSettings["MaxBooksPerPeriod"]);
-                var reader = CreateUserForTests(UserType.Reader);
+                var reader = this.CreateUserForTests(UserType.Reader);
 
                 for (var i = 0; i < maxBooksPerDay; i++) // 10 books per day in initial case
                 {
                     var bookBorrow1 = new BookBorrow
                     {
-                        Books = new List<BookEdition> { CreateBookEditionForTests() },
-                        Employee = CreateUserForTests(UserType.Employee),
+                        Books = new List<BookEdition> { this.CreateBookEditionForTests() },
+                        Employee = this.CreateUserForTests(UserType.Employee),
                         Reader = reader,
                         BorrowDate = DateTime.Now,
                         IsReturned = false,
                         ReBorrows = 0,
-                        ReturnDate = null
+                        ReturnDate = null,
                     };
                     
                     unitOfWork.BookBorrows.Add(bookBorrow1);
@@ -777,13 +778,13 @@ namespace UnitBV_Biblioteq_Tests
 
                 var borrowBook2 = new BookBorrow()
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook2);
@@ -797,22 +798,22 @@ namespace UnitBV_Biblioteq_Tests
         {
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
-                var book = CreateBookEditionForTests();
+                var book = this.CreateBookEditionForTests();
                 var borrows = book.Copies * 0.9 - book.CopiesLibrary - 1;
                 
-                var reader = CreateUserForTests(UserType.Reader);
+                var reader = this.CreateUserForTests(UserType.Reader);
 
                 for (var i = 0; i < borrows; i++) // 10 books per day in initial case
                 {
                     var bookBorrow1 = new BookBorrow
                     {
                         Books = new List<BookEdition> { book },
-                        Employee = CreateUserForTests(UserType.Employee),
+                        Employee = this.CreateUserForTests(UserType.Employee),
                         Reader = reader,
                         BorrowDate = DateTime.Now,
                         IsReturned = false,
                         ReBorrows = 0,
-                        ReturnDate = null
+                        ReturnDate = null,
                     };
 
                     unitOfWork.BookBorrows.Add(bookBorrow1);
@@ -821,12 +822,12 @@ namespace UnitBV_Biblioteq_Tests
                 var borrowBook2 = new BookBorrow()
                 {
                     Books = new List<BookEdition>() { book },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook2);
@@ -842,13 +843,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition> { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition> { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -887,13 +888,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -910,13 +911,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -959,13 +960,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -1026,13 +1027,13 @@ namespace UnitBV_Biblioteq_Tests
                 var reborrowLimit = int.Parse(ConfigurationManager.AppSettings["ReBorrowLimit"]); // 3 in initial case
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -1049,13 +1050,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -1072,13 +1073,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -1095,13 +1096,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -1120,13 +1121,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -1144,13 +1145,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -1168,13 +1169,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -1192,13 +1193,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -1216,13 +1217,13 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -1240,18 +1241,18 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
 
-                borrow.Employee = CreateUserForTests(UserType.Reader);
+                borrow.Employee = this.CreateUserForTests(UserType.Reader);
                 var result = unitOfWork.BookBorrows.EditBookBorrow(borrow);
                 Assert.AreEqual(false, result);
             }
@@ -1262,20 +1263,20 @@ namespace UnitBV_Biblioteq_Tests
         {
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
-                var book = CreateBookEditionForTests();
+                var book = this.CreateBookEditionForTests();
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition> { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
-                var bookList = new List<BookEdition>{book, book};
+                var bookList = new List<BookEdition> { book, book };
 
                 borrow.Books = bookList;
                 var result = unitOfWork.BookBorrows.EditBookBorrow(borrow);
@@ -1293,18 +1294,18 @@ namespace UnitBV_Biblioteq_Tests
 
                 for (var i = 0; i <= maxBooksPerBorrow; i++)
                 {
-                    bookList.Add(CreateBookEditionForTests());
+                    bookList.Add(this.CreateBookEditionForTests());
                 }
                 
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -1327,7 +1328,7 @@ namespace UnitBV_Biblioteq_Tests
 
                 for (var i = 0; i <= maxDomainsForBook; i++)
                 {
-                    bookList.Add(CreateBookEditionForTests());
+                    bookList.Add(this.CreateBookEditionForTests());
                 }
 
                 foreach (var book in bookList)
@@ -1337,13 +1338,13 @@ namespace UnitBV_Biblioteq_Tests
 
                 var borrow = new BookBorrow
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(borrow);
@@ -1363,14 +1364,14 @@ namespace UnitBV_Biblioteq_Tests
                 var bookList = new List<BookEdition>();
                 for (var i = 0; i <= maxBookPerBorrow; i++)
                 {
-                    bookList.Add(CreateBookEditionForTests());
+                    bookList.Add(this.CreateBookEditionForTests());
                 }
 
                 var bookBorrow = new BookBorrow
                 {
                     Books = bookList,
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Employee),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
@@ -1389,16 +1390,16 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var maxBookPerBorrow = int.Parse(ConfigurationManager.AppSettings["MaxBooksPerBorrow"]);
                 var bookList = new List<BookEdition>();
-                for (var i = 0; i <= maxBookPerBorrow*2; i++)
+                for (var i = 0; i <= maxBookPerBorrow * 2; i++)
                 {
-                    bookList.Add(CreateBookEditionForTests());
+                    bookList.Add(this.CreateBookEditionForTests());
                 }
 
                 var bookBorrow = new BookBorrow
                 {
                     Books = bookList,
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Employee),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
@@ -1417,19 +1418,19 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var maxBooksPerPeriod = int.Parse(ConfigurationManager.AppSettings["MaxBooksPerPeriod"]);
                 var periodInDaysForMaxBooksPerPeriod = int.Parse(ConfigurationManager.AppSettings["PeriodInDaysForMaxBooksPerPeriod"]);
-                var reader = CreateUserForTests(UserType.Employee);
+                var reader = this.CreateUserForTests(UserType.Employee);
 
                 for (var i = 0; i < periodInDaysForMaxBooksPerPeriod; i++) // 14 days in this initial case
                 {
                     var bookBorrow1 = new BookBorrow()
                     {
-                        Books = new List<BookEdition>() { CreateBookEditionForTests(), CreateBookEditionForTests(), CreateBookEditionForTests() },
-                        Employee = CreateUserForTests(UserType.Employee),
+                        Books = new List<BookEdition>() { this.CreateBookEditionForTests(), this.CreateBookEditionForTests(), this.CreateBookEditionForTests() },
+                        Employee = this.CreateUserForTests(UserType.Employee),
                         Reader = reader,
                         BorrowDate = DateTime.Now.AddDays(-i), // 3 books per day in this case
                         IsReturned = false,
                         ReBorrows = 0,
-                        ReturnDate = null
+                        ReturnDate = null,
                     };
 
                     if ((i + 1) * 3 < maxBooksPerPeriod)
@@ -1440,13 +1441,13 @@ namespace UnitBV_Biblioteq_Tests
 
                 var borrowBook2 = new BookBorrow()
                 {
-                    Books = new List<BookEdition>() { CreateBookEditionForTests(), CreateBookEditionForTests(), CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Books = new List<BookEdition>() { this.CreateBookEditionForTests(), this.CreateBookEditionForTests(), this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook2);
@@ -1461,24 +1462,25 @@ namespace UnitBV_Biblioteq_Tests
             {
                 var maxBooksPerPeriod = int.Parse(ConfigurationManager.AppSettings["MaxBooksPerPeriod"]);
                 var periodInDaysForMaxBooksPerPeriod = int.Parse(ConfigurationManager.AppSettings["PeriodInDaysForMaxBooksPerPeriod"]);
-                var reader = CreateUserForTests(UserType.Employee);
+                var reader = this.CreateUserForTests(UserType.Employee);
 
-                for (var i = 0; i < periodInDaysForMaxBooksPerPeriod/2; i++) // 14 days in this initial case
+                for (var i = 0; i < periodInDaysForMaxBooksPerPeriod / 2; i++) // 14 days in this initial case
                 {
                     var bookList = new List<BookEdition>();
                     for (var j = 0; j < maxBooksPerPeriod * 4 / periodInDaysForMaxBooksPerPeriod; j++)
                     {
-                        bookList.Add(CreateBookEditionForTests());
+                        bookList.Add(this.CreateBookEditionForTests());
                     }
+                    
                     var bookBorrow1 = new BookBorrow()
                     {
                         Books = bookList,
-                        Employee = CreateUserForTests(UserType.Employee),
+                        Employee = this.CreateUserForTests(UserType.Employee),
                         Reader = reader,
                         BorrowDate = DateTime.Now.AddDays(-i), // maxBooksPerPeriod * 4 / periodInDaysForMaxBooksPerPeriod books per day in this case
                         IsReturned = false,
                         ReBorrows = 0,
-                        ReturnDate = null
+                        ReturnDate = null,
                     };
 
                     if ((i + 1) * maxBooksPerPeriod * 4 / periodInDaysForMaxBooksPerPeriod <= maxBooksPerPeriod * 2)
@@ -1494,18 +1496,18 @@ namespace UnitBV_Biblioteq_Tests
                 var bookList2 = new List<BookEdition>();
                 for (var j = 0; j < maxBooksPerPeriod * 4 / periodInDaysForMaxBooksPerPeriod + 1; j++)
                 {
-                    bookList2.Add(CreateBookEditionForTests());
+                    bookList2.Add(this.CreateBookEditionForTests());
                 }
                 
                 var borrowBook2 = new BookBorrow()
                 {
                     Books = bookList2,
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook2);
@@ -1519,32 +1521,32 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var maxBooksPerDayGivenByEmployee = int.Parse(ConfigurationManager.AppSettings["MaxBooksPerDayGivenByEmployee"]);
-                var employee = CreateUserForTests(UserType.Employee);
+                var employee = this.CreateUserForTests(UserType.Employee);
 
                 for (var i = 0; i < maxBooksPerDayGivenByEmployee; i++) // 20 in initial case
                 {
                     var bookBorrow1 = new BookBorrow()
                     {
-                        Books = new List<BookEdition> { CreateBookEditionForTests() },
+                        Books = new List<BookEdition> { this.CreateBookEditionForTests() },
                         Employee = employee,
-                        Reader = CreateUserForTests(UserType.Reader),
+                        Reader = this.CreateUserForTests(UserType.Reader),
                         BorrowDate = DateTime.Now,
                         IsReturned = false,
                         ReBorrows = 0,
-                        ReturnDate = null
+                        ReturnDate = null,
                     };
                     unitOfWork.BookBorrows.Add(bookBorrow1);
                 }
 
                 var bookBorrow2 = new BookBorrow()
                 {
-                    Books = new List<BookEdition> { CreateBookEditionForTests() },
+                    Books = new List<BookEdition> { this.CreateBookEditionForTests() },
                     Employee = employee,
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(bookBorrow2);
@@ -1558,32 +1560,32 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var maxBooksPerDayGivenByEmployee = int.Parse(ConfigurationManager.AppSettings["MaxBooksPerDayGivenByEmployee"]);
-                var employee = CreateUserForTests(UserType.Employee);
+                var employee = this.CreateUserForTests(UserType.Employee);
 
                 for (var i = 0; i < maxBooksPerDayGivenByEmployee - 1; i++) // 20 in initial case
                 {
                     var bookBorrow1 = new BookBorrow()
                     {
-                        Books = new List<BookEdition> { CreateBookEditionForTests() },
+                        Books = new List<BookEdition> { this.CreateBookEditionForTests() },
                         Employee = employee,
-                        Reader = CreateUserForTests(UserType.Reader),
+                        Reader = this.CreateUserForTests(UserType.Reader),
                         BorrowDate = DateTime.Now,
                         IsReturned = false,
                         ReBorrows = 0,
-                        ReturnDate = null
+                        ReturnDate = null,
                     };
                     unitOfWork.BookBorrows.Add(bookBorrow1);
                 }
 
                 var bookBorrow2 = new BookBorrow()
                 {
-                    Books = new List<BookEdition> { CreateBookEditionForTests() },
+                    Books = new List<BookEdition> { this.CreateBookEditionForTests() },
                     Employee = employee,
-                    Reader = CreateUserForTests(UserType.Reader),
+                    Reader = this.CreateUserForTests(UserType.Reader),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(bookBorrow2);
@@ -1597,32 +1599,32 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var maxBooksPerDay = int.Parse(ConfigurationManager.AppSettings["MaxBooksPerDay"]);
-                var employee = CreateUserForTests(UserType.Employee);
+                var employee = this.CreateUserForTests(UserType.Employee);
 
                 for (var i = 0; i < maxBooksPerDay; i++)
                 {
                     var bookBorrow1 = new BookBorrow()
                     {
-                        Books = new List<BookEdition> { CreateBookEditionForTests() },
-                        Employee = CreateUserForTests(UserType.Employee),
+                        Books = new List<BookEdition> { this.CreateBookEditionForTests() },
+                        Employee = this.CreateUserForTests(UserType.Employee),
                         Reader = employee,
                         BorrowDate = DateTime.Now,
                         IsReturned = false,
                         ReBorrows = 0,
-                        ReturnDate = null
+                        ReturnDate = null,
                     };
                     unitOfWork.BookBorrows.Add(bookBorrow1);
                 }
 
                 var bookBorrow2 = new BookBorrow()
                 {
-                    Books = new List<BookEdition> { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Books = new List<BookEdition> { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = employee,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(bookBorrow2);
@@ -1636,38 +1638,38 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var maxBooksInSameDomain = int.Parse(ConfigurationManager.AppSettings["MaxBooksInSameDomain"]);
-                var reader = CreateUserForTests(UserType.Employee);
+                var reader = this.CreateUserForTests(UserType.Employee);
                 var domain = new Domain() { Name = "DomainTestCase" };
 
                 for (var i = 0; i < maxBooksInSameDomain; i++)
                 {
-                    var book1 = CreateBookEditionForTests();
+                    var book1 = this.CreateBookEditionForTests();
                     book1.Book.Domains.Add(domain);
                     var bookBorrow1 = new BookBorrow()
                     {
                         Books = new List<BookEdition>() { book1 },
-                        Employee = CreateUserForTests(UserType.Employee),
+                        Employee = this.CreateUserForTests(UserType.Employee),
                         Reader = reader,
                         BorrowDate = DateTime.Now.AddDays(-i),
                         IsReturned = false,
                         ReBorrows = 0,
-                        ReturnDate = null
+                        ReturnDate = null,
                     };
 
                     unitOfWork.BookBorrows.Add(bookBorrow1);
                 }
 
-                var book2 = CreateBookEditionForTests();
+                var book2 = this.CreateBookEditionForTests();
                 book2.Book.Domains.Add(domain);
                 var borrowBook2 = new BookBorrow()
                 {
                     Books = new List<BookEdition>() { book2 },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook2);
@@ -1682,38 +1684,38 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var maxBooksInSameDomain = int.Parse(ConfigurationManager.AppSettings["MaxBooksInSameDomain"]);
-                var reader = CreateUserForTests(UserType.Employee);
+                var reader = this.CreateUserForTests(UserType.Employee);
                 var domain = new Domain() { Name = "DomainTestCase" };
 
                 for (var i = 0; i < maxBooksInSameDomain * 2; i++)
                 {
-                    var book1 = CreateBookEditionForTests();
+                    var book1 = this.CreateBookEditionForTests();
                     book1.Book.Domains.Add(domain);
                     var bookBorrow1 = new BookBorrow()
                     {
                         Books = new List<BookEdition>() { book1 },
-                        Employee = CreateUserForTests(UserType.Employee),
+                        Employee = this.CreateUserForTests(UserType.Employee),
                         Reader = reader,
                         BorrowDate = DateTime.Now.AddDays(-i),
                         IsReturned = false,
                         ReBorrows = 0,
-                        ReturnDate = null
+                        ReturnDate = null,
                     };
 
                     unitOfWork.BookBorrows.Add(bookBorrow1);
                 }
 
-                var book2 = CreateBookEditionForTests();
+                var book2 = this.CreateBookEditionForTests();
                 book2.Book.Domains.Add(domain);
                 var borrowBook2 = new BookBorrow()
                 {
                     Books = new List<BookEdition>() { book2 },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(borrowBook2);
@@ -1731,13 +1733,13 @@ namespace UnitBV_Biblioteq_Tests
 
                 var bookBorrow = new BookBorrow
                 {
-                    Books = new List<BookEdition> { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Employee),
+                    Books = new List<BookEdition> { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Employee),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(bookBorrow);
@@ -1746,6 +1748,7 @@ namespace UnitBV_Biblioteq_Tests
                 {
                     unitOfWork.BookBorrows.ReBorrowBook(bookBorrow);
                 }
+                
                 var result = unitOfWork.BookBorrows.ReBorrowBook(bookBorrow);
 
                 Assert.AreEqual(true, result);
@@ -1761,13 +1764,13 @@ namespace UnitBV_Biblioteq_Tests
 
                 var bookBorrow = new BookBorrow
                 {
-                    Books = new List<BookEdition> { CreateBookEditionForTests() },
-                    Employee = CreateUserForTests(UserType.Employee),
-                    Reader = CreateUserForTests(UserType.Employee),
+                    Books = new List<BookEdition> { this.CreateBookEditionForTests() },
+                    Employee = this.CreateUserForTests(UserType.Employee),
+                    Reader = this.CreateUserForTests(UserType.Employee),
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 unitOfWork.BookBorrows.Add(bookBorrow);
@@ -1776,6 +1779,7 @@ namespace UnitBV_Biblioteq_Tests
                 {
                     unitOfWork.BookBorrows.ReBorrowBook(bookBorrow);
                 }
+                
                 var result = unitOfWork.BookBorrows.ReBorrowBook(bookBorrow);
 
                 Assert.AreEqual(false, result);
@@ -1788,31 +1792,30 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var periodInDaysForSameBookBorrowing = int.Parse(ConfigurationManager.AppSettings["PeriodInDaysForSameBookBorrowing"]);
-                var reader = CreateUserForTests(UserType.Employee);
-                var book = CreateBookEditionForTests();
+                var reader = this.CreateUserForTests(UserType.Employee);
+                var book = this.CreateBookEditionForTests();
 
                 var bookBorrow1 = new BookBorrow
                 {
                     Books = new List<BookEdition> { book },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
-                    BorrowDate = DateTime.Now.AddDays(- periodInDaysForSameBookBorrowing + 1),
+                    BorrowDate = DateTime.Now.AddDays(-periodInDaysForSameBookBorrowing + 1),
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
                 unitOfWork.BookBorrows.Add(bookBorrow1);
-
 
                 var bookBorrow2 = new BookBorrow
                 {
                     Books = new List<BookEdition> { book },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(bookBorrow2);
@@ -1826,38 +1829,35 @@ namespace UnitBV_Biblioteq_Tests
             using (var unitOfWork = new UnitOfWork(new AppDbContext()))
             {
                 var periodInDaysForSameBookBorrowing = int.Parse(ConfigurationManager.AppSettings["PeriodInDaysForSameBookBorrowing"]);
-                var reader = CreateUserForTests(UserType.Employee);
+                var reader = this.CreateUserForTests(UserType.Employee);
 
-                var book = CreateBookEditionForTests();
+                var book = this.CreateBookEditionForTests();
                 var bookBorrow1 = new BookBorrow
                 {
                     Books = new List<BookEdition> { book },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
-                    BorrowDate = DateTime.Now.AddDays(-periodInDaysForSameBookBorrowing/2 + 1),
+                    BorrowDate = DateTime.Now.AddDays(-periodInDaysForSameBookBorrowing / 2 + 1),
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
                 unitOfWork.BookBorrows.Add(bookBorrow1);
-
 
                 var bookBorrow2 = new BookBorrow
                 {
                     Books = new List<BookEdition> { book },
-                    Employee = CreateUserForTests(UserType.Employee),
+                    Employee = this.CreateUserForTests(UserType.Employee),
                     Reader = reader,
                     BorrowDate = DateTime.Now,
                     IsReturned = false,
                     ReBorrows = 0,
-                    ReturnDate = null
+                    ReturnDate = null,
                 };
 
                 var result = unitOfWork.BookBorrows.Add(bookBorrow2);
                 Assert.AreEqual(false, result);
             }
         }
-
-
     }
 }

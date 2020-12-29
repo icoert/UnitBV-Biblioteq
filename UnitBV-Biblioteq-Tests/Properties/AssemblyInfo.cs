@@ -3,11 +3,11 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("UnitBV-Biblioteq-Tests")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("ASSE.NET Project")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("UnitBV-Biblioteq-Tests")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCompany("Transilvanya University of Brasov")]
+[assembly: AssemblyProduct("UnitBV-Biblioteq")]
+[assembly: AssemblyCopyright("Copyright © Silviu-Daniel Vijiala 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

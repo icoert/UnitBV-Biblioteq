@@ -1,4 +1,17 @@
-﻿using System.Reflection;
+﻿// ***********************************************************************
+// Assembly         : UnitBV-Biblioteq
+// Author           : silvi
+// Created          : 12-13-2020
+//
+// Last Modified By : silvi
+// Last Modified On : 12-29-2020
+// ***********************************************************************
+// <copyright file="AssemblyInfo.cs" company="Transilvanya University of Brasov">
+//     Copyright © Silviu-Daniel Vijiala 2020
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -6,11 +19,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("UnitBV-Biblioteq")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("ASSE.NET Project")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Transilvanya University of Brasov")]
 [assembly: AssemblyProduct("UnitBV-Biblioteq")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCopyright("Copyright © Silviu-Daniel Vijiala 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
