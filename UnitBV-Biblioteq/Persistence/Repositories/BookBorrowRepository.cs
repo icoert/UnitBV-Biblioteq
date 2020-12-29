@@ -88,7 +88,9 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
             }
             catch (Exception ex)
             {
-                Logger.Info($"Failed to update book borrow with id={borrow.Id}.");
+                Logger.Info(borrow != null
+                    ? $"Failed to update book borrow with id={borrow.Id}."
+                    : $"Failed to update book borrow.");
                 Logger.Error(ex.Message, ex);
                 return false;
             }
@@ -105,6 +107,7 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
                     Logger.Info("Failed to reborrow null book borrow.");
                     return false;
                 }
+                
                 var reborrowLimit = int.Parse(ConfigurationManager.AppSettings["ReBorrowLimit"]);
 
                 var existing = AppDbContext.BookBorrows.FirstOrDefault(a => a.Id == borrow.Id);
@@ -155,6 +158,7 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
                     Logger.Info("Failed to return null book borrow.");
                     return false;
                 }
+                
                 var existing = AppDbContext.BookBorrows.FirstOrDefault(a => a.Id == borrow.Id);
                 if (existing != null)
                 {

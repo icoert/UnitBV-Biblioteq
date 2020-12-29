@@ -80,6 +80,7 @@
     <Compile Include="BooksTests.cs" />
     <Compile Include="DomainsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublishersTests.cs" />
     <Compile Include="UsersTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +92,10 @@
       <Project>{07B02BCA-1AED-4CCA-AFDF-7B217F99EC0D}</Project>
       <Name>UnitBV-Biblioteq</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
