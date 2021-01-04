@@ -34,12 +34,13 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
         /// Initializes a new instance of the <see cref="BookBorrowRepository" /> class.
         /// </summary>
         /// <param name="context">The context.</param>
-        public BookBorrowRepository(AppDbContext context) : base(context)
+        public BookBorrowRepository(AppDbContext context) 
+            : base(context)
         {
         }
 
         /// <summary>
-        /// The logger
+        /// The logger.
         /// </summary>
         private static readonly ILog Logger = LogManager.GetLogger(typeof(BookBorrowRepository));
 
@@ -157,7 +158,7 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
                     Logger.Info("Failed to reborrow null book borrow.");
                     return false;
                 }
-                
+
                 var reborrowLimit = int.Parse(ConfigurationManager.AppSettings["ReBorrowLimit"]);
 
                 var existing = AppDbContext.BookBorrows.FirstOrDefault(a => a.Id == borrow.Id);
@@ -213,7 +214,7 @@ namespace UnitBV_Biblioteq.Persistence.Repositories
                     Logger.Info("Failed to return null book borrow.");
                     return false;
                 }
-                
+
                 var existing = AppDbContext.BookBorrows.FirstOrDefault(a => a.Id == borrow.Id);
                 if (existing != null)
                 {
